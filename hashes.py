@@ -5,9 +5,9 @@ from dataclasses import dataclass
 class Prototype:
     _fields = ["regex", "modes"]
 
-    def __init__(self, regex=None, modes=None):
-        self.regex = regex
-        self.modes = modes
+    def __init__(self, regex, modes):
+        self.regex = regex.regex
+        self.modes = regex.modes
 
     def __repr__(self):
         return f"Prototype(regex={self._repr_format(self.regex)}, modes={self.modes})"
@@ -422,15 +422,15 @@ prototypes = [
             )
         ],
     ),
-    Prototype(
-        regex=re.compile(r"^{SHA}[a-z0-9\/+]{27}=$", re.IGNORECASE),
-        modes=[
-            HashInfo(name="SHA-1(Base64)", hashcat=101, john="nsldap", extended=False),
-            HashInfo(
-                name="Netscape LDAP SHA", hashcat=101, john="nsldap", extended=False
-            ),
-        ],
-    ),
+    # Prototype(
+    #     regex=re.compile(r"^{SHA}[a-z0-9\/+]{27}=$", re.IGNORECASE),
+    #     modes=[
+    #         HashInfo(name="SHA-1(Base64)", hashcat=101, john="nsldap", extended=False),
+    #         HashInfo(
+    #             name="Netscape LDAP SHA", hashcat=101, john="nsldap", extended=False
+    #         ),
+    #     ],
+    # ),
     Prototype(
         regex=re.compile(
             r"^\$1\$[a-z0-9\/.]{0,8}\$[a-z0-9\/.]{22}(:.*)?$", re.IGNORECASE
@@ -491,12 +491,12 @@ prototypes = [
             HashInfo(name="md5apr1", hashcat=1600, john=None, extended=True),
         ],
     ),
-    Prototype(
-        regex=re.compile(r"^{smd5}[a-z0-9$\/.]{31}$", re.IGNORECASE),
-        modes=[
-            HashInfo(name="AIX(smd5)", hashcat=6300, john="aix-smd5", extended=False)
-        ],
-    ),
+    # Prototype(
+    #     regex=re.compile(r"^{smd5}[a-z0-9$\/.]{31}$", re.IGNORECASE),
+    #     modes=[
+    #         HashInfo(name="AIX(smd5)", hashcat=6300, john="aix-smd5", extended=False)
+    #     ],
+    # ),
     Prototype(
         regex=re.compile(r"^[a-f0-9]{32}:.{5}$", re.IGNORECASE),
         modes=[
@@ -638,18 +638,18 @@ prototypes = [
             HashInfo(name="Cisco-IOS(SHA-256)", hashcat=5700, john=None, extended=False)
         ],
     ),
-    Prototype(
-        regex=re.compile(r"^{SSHA}[a-z0-9\/+]{38}==$", re.IGNORECASE),
-        modes=[
-            HashInfo(
-                name="SSHA-1(Base64)", hashcat=111, john="nsldaps", extended=False
-            ),
-            HashInfo(
-                name="Netscape LDAP SSHA", hashcat=111, john="nsldaps", extended=False
-            ),
-            HashInfo(name="nsldaps", hashcat=111, john="nsldaps", extended=True),
-        ],
-    ),
+    # Prototype(
+    #     regex=re.compile(r"^{SSHA}[a-z0-9\/+]{38}==$", re.IGNORECASE),
+    #     modes=[
+    #         HashInfo(
+    #             name="SSHA-1(Base64)", hashcat=111, john="nsldaps", extended=False
+    #         ),
+    #         HashInfo(
+    #             name="Netscape LDAP SSHA", hashcat=111, john="nsldaps", extended=False
+    #         ),
+    #         HashInfo(name="nsldaps", hashcat=111, john="nsldaps", extended=True),
+    #     ],
+    # ),
     Prototype(
         regex=re.compile(r"^[a-z0-9=]{47}$", re.IGNORECASE),
         modes=[
@@ -687,12 +687,12 @@ prototypes = [
             )
         ],
     ),
-    Prototype(
-        regex=re.compile(r"^{ssha1}[0-9]{2}\$[a-z0-9$\/.]{44}$", re.IGNORECASE),
-        modes=[
-            HashInfo(name="AIX(ssha1)", hashcat=6700, john="aix-ssha1", extended=False)
-        ],
-    ),
+    # Prototype(
+    #     regex=re.compile(r"^{ssha1}[0-9]{2}\$[a-z0-9$\/.]{44}$", re.IGNORECASE),
+    #     modes=[
+    #         HashInfo(name="AIX(ssha1)", hashcat=6700, john="aix-ssha1", extended=False)
+    #     ],
+    # ),
     Prototype(
         regex=re.compile(r"^0x0100[a-f0-9]{48}$", re.IGNORECASE),
         modes=[
@@ -825,15 +825,15 @@ prototypes = [
             )
         ],
     ),
-    Prototype(
-        regex=re.compile(
-            r"^\$bcrypt-sha256\$(2[axy]|2)\,[0-9]+\$[a-z0-9\/.]{22}\$[a-z0-9\/.]{31}$",
-            re.IGNORECASE,
-        ),
-        modes=[
-            HashInfo(name="bcrypt(SHA-256)", hashcat=None, john=None, extended=False)
-        ],
-    ),
+    # Prototype(
+    #     regex=re.compile(
+    #         r"^\$bcrypt-sha256\$(2[axy]|2)\,[0-9]+\$[a-z0-9\/.]{22}\$[a-z0-9\/.]{31}$",
+    #         re.IGNORECASE,
+    #     ),
+    #     modes=[
+    #         HashInfo(name="bcrypt(SHA-256)", hashcat=None, john=None, extended=False)
+    #     ],
+    # ),
     Prototype(
         regex=re.compile(r"^[a-f0-9]{32}:.{3}$", re.IGNORECASE),
         modes=[
@@ -1009,14 +1009,14 @@ prototypes = [
             )
         ],
     ),
-    Prototype(
-        regex=re.compile(r"^{ssha256}[0-9]{2}\$[a-z0-9$\/.]{60}$", re.IGNORECASE),
-        modes=[
-            HashInfo(
-                name="AIX(ssha256)", hashcat=6400, john="aix-ssha256", extended=False
-            )
-        ],
-    ),
+    # Prototype(
+    #     regex=re.compile(r"^{ssha256}[0-9]{2}\$[a-z0-9$\/.]{60}$", re.IGNORECASE),
+    #     modes=[
+    #         HashInfo(
+    #             name="AIX(ssha256)", hashcat=6400, john="aix-ssha256", extended=False
+    #         )
+    #     ],
+    # ),
     Prototype(
         regex=re.compile(r"^[a-f0-9]{80}$", re.IGNORECASE),
         modes=[
@@ -1100,27 +1100,27 @@ prototypes = [
             HashInfo(name="Skein-384", hashcat=None, john="dynamic_350", extended=True),
         ],
     ),
-    Prototype(
-        regex=re.compile(r"^{SSHA512}[a-z0-9\/+]{96}$", re.IGNORECASE),
-        modes=[
-            HashInfo(
-                name="SSHA-512(Base64)", hashcat=1711, john="ssha512", extended=False
-            ),
-            HashInfo(
-                name="LDAP(SSHA-512)", hashcat=1711, john="ssha512", extended=False
-            ),
-        ],
-    ),
-    Prototype(
-        regex=re.compile(
-            r"^{ssha512}[0-9]{2}\$[a-z0-9\/.]{16,48}\$[a-z0-9\/.]{86}$", re.IGNORECASE
-        ),
-        modes=[
-            HashInfo(
-                name="AIX(ssha512)", hashcat=6500, john="aix-ssha512", extended=False
-            )
-        ],
-    ),
+    # Prototype(
+    #     regex=re.compile(r"^{SSHA512}[a-z0-9\/+]{96}$", re.IGNORECASE),
+    #     modes=[
+    #         HashInfo(
+    #             name="SSHA-512(Base64)", hashcat=1711, john="ssha512", extended=False
+    #         ),
+    #         HashInfo(
+    #             name="LDAP(SSHA-512)", hashcat=1711, john="ssha512", extended=False
+    #         ),
+    #     ],
+    # ),
+    # Prototype(
+    #     regex=re.compile(
+    #         r"^{ssha512}[0-9]{2}\$[a-z0-9\/.]{16,48}\$[a-z0-9\/.]{86}$", re.IGNORECASE
+    #     ),
+    #     modes=[
+    #         HashInfo(
+    #             name="AIX(ssha512)", hashcat=6500, john="aix-ssha512", extended=False
+    #         )
+    #     ],
+    # ),
     Prototype(
         regex=re.compile(r"^[a-f0-9]{128}(:.+)?$", re.IGNORECASE),
         modes=[
@@ -1595,17 +1595,17 @@ prototypes = [
             )
         ],
     ),
-    Prototype(
-        regex=re.compile(r"^{FSHP[0123]\|[0-9]+\|[0-9]+}[a-z0-9\/+=]+$", re.IGNORECASE),
-        modes=[
-            HashInfo(
-                name="Fairly Secure Hashed Password",
-                hashcat=None,
-                john=None,
-                extended=False,
-            )
-        ],
-    ),
+    # Prototype(
+    #     regex=re.compile(r"^{FSHP[0123]\|[0-9]+\|[0-9]+}[a-z0-9\/+=]+$", re.IGNORECASE),
+    #     modes=[
+    #         HashInfo(
+    #             name="Fairly Secure Hashed Password",
+    #             hashcat=None,
+    #             john=None,
+    #             extended=False,
+    #         )
+    #     ],
+    # ),
     Prototype(
         regex=re.compile(r"^\$PHPS\$.+\$[a-f0-9]{32}$", re.IGNORECASE),
         modes=[HashInfo(name="PHPS", hashcat=2612, john="phps", extended=False)],
@@ -1885,17 +1885,17 @@ prototypes = [
             HashInfo(name="RAdmin v2.x", hashcat=9900, john="radmin", extended=False)
         ],
     ),
-    Prototype(
-        regex=re.compile(r"^{x-issha,\s[0-9]{4}}[a-z0-9\/+=]+$", re.IGNORECASE),
-        modes=[
-            HashInfo(
-                name="SAP CODVN H (PWDSALTEDHASH) iSSHA-1",
-                hashcat=10300,
-                john="saph",
-                extended=False,
-            )
-        ],
-    ),
+    # Prototype(
+    #     regex=re.compile(r"^{x-issha,\s[0-9]{4}}[a-z0-9\/+=]+$", re.IGNORECASE),
+    #     modes=[
+    #         HashInfo(
+    #             name="SAP CODVN H (PWDSALTEDHASH) iSSHA-1",
+    #             hashcat=10300,
+    #             john="saph",
+    #             extended=False,
+    #         )
+    #     ],
+    # ),
     Prototype(
         regex=re.compile(
             r"^\$cram_md5\$[a-z0-9\/+=-]+\$[a-z0-9\/+=-]{52}$", re.IGNORECASE

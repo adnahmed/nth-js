@@ -1,3 +1,11 @@
+import hash_info
+import hash_namer
+import hashes
+
+nth = hash_namer.Name_That_Hash(hashes.prototypes)
+popular = hash_info.HashInformation().popular
+
+
 class HashType:
     """
     Every hash given to our program will be associated with one object.
@@ -5,10 +13,8 @@ class HashType:
     and provides ways to print that hash.
     """
 
-    def __init__(self, chash: str, nth, hash_info):
+    def __init__(self, chash: str):
         self.chash = chash
-        self.nth = nth
-        self.popular = hash_info.popular
         self.prototypes = nth.identify(chash)
         self.prototypes = self.sort_by_popular()
 
